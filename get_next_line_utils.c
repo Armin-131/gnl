@@ -12,3 +12,76 @@
 
 #include "get_next_line.h"
 
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+void	ft_freedom(void **ptr)
+{
+	if (*ptr)
+		free(*ptr);
+	*ptr = NULL;
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+	char	*temp;
+
+	ptr = malloc (nmemb * size);
+	if (!ptr)
+		return (0);
+	temp = (char *)ptr;
+	while (size--)
+		*temp++ = '\0';
+	return (ptr);
+}
+
+char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	size_t	ls;
+	size_t	i;
+	char	*psub;
+
+	ls = ft_strlen(s);
+	i = 0;
+	if (start >= ls)
+		return (ft_calloc(1, 1));
+	if (len + start > ls)
+		len = ls - start;
+	psub = malloc((len + 1) * sizeof(char));
+	if (!psub)
+		return (NULL);
+	while (i < len && s[i])
+	{
+		psub[i] = s[start];
+		i++;
+		start++;
+	}
+	psub[i] = '\0';
+	return (psub);
+}
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
+	return (0);
+}
+
