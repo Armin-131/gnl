@@ -73,7 +73,6 @@ char	*ft_getln(char *masterbuf)
 		{
 			i++;
 			line = ft_substr(masterbuf, 0, i);
-			//printf("linesss: [%s]\n", line);
 			break ;
 		}
 	}
@@ -119,6 +118,7 @@ char	*get_next_line(int fd)
 	masterbuf = ft_getrest(masterbuf);
 	return (line);
 }
+
 int	main(void)
 {
 	int		fd;

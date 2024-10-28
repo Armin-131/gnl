@@ -10,17 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
-int main()
+
+int	main(void)
 {
-	int	fd;
-	char	s[20];
+	int		fd;
+	char	*line;
 
-	fd = open("Hello.txt", O_RDONLY);
-	read(fd, s, 5);
-	printf("%d",fd);
-	printf("%s", s);
-
+	fd = open("quijott.txt", O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		ft_freedom((void **)&line);
+		line = get_next_line(fd);
+	}
 }

@@ -14,12 +14,18 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1024
 # endif
 
-# include <unistd.h>
+# include <fcntl.h>
 # include <stdio.h>
-# include <stdint.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+size_t	ft_strlen(const char *str);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_freedom(void **ptr);
 
 #endif
-
