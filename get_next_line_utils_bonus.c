@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*    get_next_line_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaven <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 19:11:38 by abenaven          #+#    #+#             */
-/*   Updated: 2024/10/27 19:12:10 by abenaven         ###   ########.fr       */
+/*   Created: 2024/10/28 18:44:17 by abenaven          #+#    #+#             */
+/*   Updated: 2024/10/28 18:44:19 by abenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {

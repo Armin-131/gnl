@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaven <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 20:08:51 by abenaven          #+#    #+#             */
-/*   Updated: 2024/10/22 19:47:19 by abenaven         ###   ########.fr       */
+/*   Created: 2024/10/28 18:43:07 by abenaven          #+#    #+#             */
+/*   Updated: 2024/10/28 18:43:13 by abenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *masterbuf, char *buf)
 {
@@ -109,29 +109,34 @@ char	*ft_getline(char *masterbuf)
 
 char	*get_next_line(int fd)
 {
-	static char	*masterbuf;
+	static char	*masterbuf[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	masterbuf = ft_readln(masterbuf, fd);
-	line = ft_getline(masterbuf);
+	masterbuf[fd] = ft_readln(masterbuf[fd], fd);
+	line = ft_getline(masterbuf[fd]);
 	if (!ft_strchr(line, '\n'))
 		ft_freedom((void **)&masterbuf);
-	masterbuf = ft_getnext(masterbuf);
+	masterbuf[fd] = ft_getnext(masterbuf[fd]);
 	return (line);
 }
 
 int	main(void)
 {
 	int		fd;
+	int		fd1;
 	char	*line;
 
 	fd = open("Hello.txt", O_RDONLY);
+	fd1 = open("LOL.txt", O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
 		printf("f: %s\n", line);
+		ft_freedom((void **)&line);
+		line = get_next_line(fd1);
+		printf("f1: %s\n", line);
 		ft_freedom((void **)&line);
 		line = get_next_line(fd);
 	}
