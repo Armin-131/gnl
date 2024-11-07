@@ -18,21 +18,21 @@ char	*ft_strjoin(char *masterbuf, char *buf)
 	size_t	i;
 	size_t	j;
 
+	if (!masterbuf)
+	{
+		masterbuf = ft_calloc(1, 1);
+		if (!masterbuf)
+			return (NULL);
+	}
 	ptr = malloc((ft_strlen(masterbuf) + ft_strlen(buf) + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
-	i = 0;
-	while (masterbuf[i])
-	{
+	i = -1;
+	while (masterbuf[++i])
 		ptr[i] = masterbuf[i];
-		i++;
-	}
-	j = 0;
-	while (buf[j])
-	{
+	j = -1;
+	while (buf[++j])
 		ptr[i + j] = buf[j];
-		j++;
-	}
 	ptr[i + j] = '\0';
 	ft_freedom((void **)&masterbuf);
 	return (ptr);
@@ -64,25 +64,22 @@ char	*ft_readln(char *masterbuf, int fd)
 	char	*buf;
 	int		bytes_read;
 
-	if (masterbuf == NULL)
-		masterbuf = ft_calloc(1, 1);
-	while (!ft_strchr(masterbuf, '\n'))
+	buf = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	if (!buf)
+		return (NULL);
+	bytes_read = 1;
+	while (!ft_strchr(masterbuf, '\n') && bytes_read != 0)
 	{
-		buf = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-		if (!buf)
-			return (NULL);
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (ft_freedom((void **)&buf));
-		else if (bytes_read == 0)
 		{
-			ft_freedom((void **)&buf);
-			return (masterbuf);
+			ft_freedom((void **)&masterbuf);
+			return (ft_freedom((void **)&buf));
 		}
 		buf[bytes_read] = '\0';
 		masterbuf = ft_strjoin(masterbuf, buf);
-		ft_freedom((void **)&buf);
 	}
+	ft_freedom((void **)&buf);
 	return (masterbuf);
 }
 
@@ -109,7 +106,7 @@ char	*ft_getline(char *masterbuf)
 
 char	*get_next_line(int fd)
 {
-	static char	*masterbuf;
+	static char	*masterbuf = NULL;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -124,19 +121,18 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+//int	main(void)
+//{
+//	int		fd;
+//	char	*line;
 
-	fd = open("Hell.txt", O_RDONLY);
-	line = get_next_line(fd);
-	printf("f: %s\n", line);
-	while (line)
-	{
-		printf("f: %s\n", line);
-		ft_freedom((void **)&line);
-		line = get_next_line(fd);
-	}
+//	fd = open("empty", O_RDONLY);
+//	line = get_next_line(fd);
+//	while (line)
+//	{
+//		printf("f: %s\n", line);
+//		ft_freedom((void **)&line);
+//		line = get_next_line(fd);
+//	}
 
-}
+//}

@@ -40,7 +40,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	ptr = malloc(nmemb * size);
 	if (!ptr)
-		return (0);
+		ft_freedom((void**)ptr);
 	temp = (char *)ptr;
 	while (size--)
 		*temp++ = '\0';
