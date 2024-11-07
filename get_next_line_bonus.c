@@ -12,7 +12,7 @@
 
 #include "get_next_line_bonus.h"
 
-char	*ft_strjoin(char *masterbuf, char *buf)
+static char	*ft_strjoin(char *masterbuf, char *buf)
 {
 	char	*ptr;
 	size_t	i;
@@ -38,7 +38,7 @@ char	*ft_strjoin(char *masterbuf, char *buf)
 	return (ptr);
 }
 
-char	*ft_getnext(char *masterbuf)
+static char	*ft_getnext(char *masterbuf)
 {
 	size_t	i;
 	char	*temp;
@@ -59,7 +59,7 @@ char	*ft_getnext(char *masterbuf)
 	return (temp);
 }
 
-char	*ft_readln(char *masterbuf, int fd)
+static char	*ft_readln(char *masterbuf, int fd)
 {
 	char	*buf;
 	int		bytes_read;
@@ -86,7 +86,7 @@ char	*ft_readln(char *masterbuf, int fd)
 	return (masterbuf);
 }
 
-char	*ft_getline(char *masterbuf)
+static char	*ft_getline(char *masterbuf)
 {
 	size_t	i;
 	char	*line;
@@ -115,6 +115,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	masterbuf[fd] = ft_readln(masterbuf[fd], fd);
+	if(!masterbuf)
+		return(NULL);
 	line = ft_getline(masterbuf[fd]);
 	if (!ft_strchr(line, '\n'))
 		ft_freedom((void **)&masterbuf);

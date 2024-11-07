@@ -115,9 +115,11 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	masterbuf = ft_readln(masterbuf, fd);
+	if (!masterbuf)
+		return(NULL);
 	line = ft_getline(masterbuf);
 	if (!ft_strchr(line, '\n'))
-		ft_freedom((void **)&masterbuf);
+		ft_freedom((void **)&masterbuf);		
 	masterbuf = ft_getnext(masterbuf);
 	return (line);
 }
@@ -127,12 +129,14 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("Hello.txt", O_RDONLY);
+	fd = open("Hell.txt", O_RDONLY);
 	line = get_next_line(fd);
+	printf("f: %s\n", line);
 	while (line)
 	{
 		printf("f: %s\n", line);
 		ft_freedom((void **)&line);
 		line = get_next_line(fd);
 	}
+
 }
